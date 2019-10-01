@@ -54,6 +54,8 @@ void InitContextFunctions(FLookup flookup) {
   TVM_INIT_CONTEXT_FUNC(TVMBackendParallelLaunch);
   TVM_INIT_CONTEXT_FUNC(TVMBackendParallelBarrier);
 
+  TVM_INIT_CONTEXT_FUNC(TestExternalFunc);
+
   #undef TVM_INIT_CONTEXT_FUNC
 }
 }  // namespace runtime

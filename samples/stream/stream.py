@@ -3,6 +3,7 @@ import heterocl as hcl
 # hcl.init(place=hcl.CPU("riscv"))
 hcl.init(place=hcl.FPGA("intel"))
 initiation_interval = 4
+
 a = hcl.placeholder((10, 20), name="a")
 b = hcl.placeholder((10, 20), name="b")
 
@@ -48,9 +49,15 @@ s[c].stream_to(s[add_mul.ret_add],
                s[add_mul.ret_mul])
 
 # return buffer for inter-device move
-d0 = s[d].stream_to(hcl.FPGA('intel'))
+# d0 = s[d].stream_to(hcl.FPGA('intel'))
 
 # print(add_mul.ret_mul._buf, c._buf)
 print(hcl.lower(s))
-print(hcl.build(s, target="vhls"))
+#code = hcl.build(s, target="aocl")
 
+print(hcl.build(s))
+
+with open("example.cl", "w") as f:
+  f.write(code)
+  f.close()
+ 

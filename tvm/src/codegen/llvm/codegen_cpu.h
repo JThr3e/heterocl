@@ -27,6 +27,9 @@ class CodeGenCPU : public CodeGenLLVM {
   void VisitStmt_(const AssertStmt* op) override;
   void VisitStmt_(const AttrStmt* op) override;
   void VisitStmt_(const For* op) override;
+  void VisitStmt_(const KernelDef* op) override;
+  llvm::Value* VisitExpr_(const StreamExpr* op);
+  void VisitStmt_(const StreamStmt* op);
   llvm::Value* CreateIntrinsic(const Call* op) override;
   llvm::Value* CreateCallExtern(const Call* op) override;
 

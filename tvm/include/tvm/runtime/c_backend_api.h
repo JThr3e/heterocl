@@ -108,6 +108,11 @@ TVM_DLL int TVMBackendParallelLaunch(FTVMParallelLambda flambda,
                                      void* cdata,
                                      int num_task);
 
+/*
+ * Test
+ */
+TVM_DLL int TestExternalFunc();
+
 /*!
  * \brief BSP barrrier between parallel threads
  * \param task_id the task id of the function.

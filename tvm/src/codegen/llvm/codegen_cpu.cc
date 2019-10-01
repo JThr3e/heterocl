@@ -604,6 +604,36 @@ void CodeGenCPU::AddStartupFunction() {
     builder_->CreateRet(nullptr);
   }
 }
+//////////////////////////////////////////////////////////////
+//
+//
+//TESTING
+//
+//
+
+void CodeGenCPU::VisitStmt_(const KernelDef* op) {
+    //TODO
+    llvm::FunctionType* ftype_ext_func_call_ = llvm::FunctionType::get(t_int_, false);
+    llvm::Function* ext_func = llvm::Function::Create(
+          ftype_ext_func_call_,
+    llvm::Function::ExternalLinkage, "TestExternalFunc", module_.get());
+    CodeGenLLVM::VisitStmt_(op);
+}
+
+llvm::Value* CodeGenCPU::VisitExpr_(const StreamExpr* op) {
+    //TODO
+    //read from stream
+    LOG(INFO) << "STREAM EXPR"; 
+    //CodeGenLLVM::VisitExpr_(op);
+    return nullptr;
+}
+void CodeGenCPU::VisitStmt_(const StreamStmt* op) {
+    //TODO
+    //write to stream
+    LOG(INFO) << "STREAM STMT";
+    CodeGenLLVM::VisitStmt_(op);
+}
+/////////////////////////////////////////////////////////////
 
 llvm::Value* CodeGenCPU::CreateIntrinsic(const Call* op) {
   if (op->is_intrinsic(intrinsic::tvm_call_packed_lowered)) {
