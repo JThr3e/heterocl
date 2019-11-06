@@ -613,10 +613,12 @@ void CodeGenCPU::AddStartupFunction() {
 
 void CodeGenCPU::VisitStmt_(const KernelDef* op) {
     //TODO
-    llvm::FunctionType* ftype_ext_func_call_ = llvm::FunctionType::get(t_int_, false);
-    llvm::Function* ext_func = llvm::Function::Create(
-          ftype_ext_func_call_,
-    llvm::Function::ExternalLinkage, "TestExternalFunc", module_.get());
+    //Create an external function
+    //llvm::FunctionType* ftype_ext_func_call_ = llvm::FunctionType::get(t_int_, false);
+    //llvm::Function* ext_func = llvm::Function::Create(
+    //      ftype_ext_func_call_,
+    //llvm::Function::ExternalLinkage, "TestExternalFunc", module_.get());
+    //Call superclass function for now
     CodeGenLLVM::VisitStmt_(op);
 }
 
@@ -633,7 +635,7 @@ void CodeGenCPU::VisitStmt_(const StreamStmt* op) {
     LOG(INFO) << "STREAM STMT";
     CodeGenLLVM::VisitStmt_(op);
 }
-/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 llvm::Value* CodeGenCPU::CreateIntrinsic(const Call* op) {
   if (op->is_intrinsic(intrinsic::tvm_call_packed_lowered)) {
